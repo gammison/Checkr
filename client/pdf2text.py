@@ -1,7 +1,7 @@
 import PyPDF2
 import os
-filenam=os.getcwd()+"\\cv_2.pdf"
-print(filenam)
+#filenam=os.getcwd()+"\\cv_2.pdf"
+#print(filenam)
 tobecalle="test.txt"
 def fileread(filename,tobecalled): #the path?
 
@@ -16,4 +16,4 @@ def fileread(filename,tobecalled): #the path?
     target.truncate()
     target.write(textfile)
 
-fileread(filenam,tobecalle)
+#fileread(filenam,tobecalle)

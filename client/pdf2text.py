@@ -1,19 +1,20 @@
 import PyPDF2
 import os
-#filenam=os.getcwd()+"\\cv_2.pdf"
-#print(filenam)
-tobecalle="test.txt"
-def fileread(filename,tobecalled): #the path?
 
-    pdfobj = open(filename,'rb') #rb for read binary mode
-    reader = PyPDF2.PdfFileReader(pdfobj)
+to_be_called = "name here.txt"
+# the path?
+
+
+def file_read(filename, tbc):
+    # rb for read binary mode
+    pdf_obj = open(filename, 'rb')
+    reader = PyPDF2.PdfFileReader(pdf_obj)
     os.getcwd()
-    textfile = "";
+    text_file = ""
 
     for i in range(reader.numPages):
-        textfile= textfile+ " "+ reader.getPage(i).extractText()
-    target = open(tobecalled,'w')
+        text_file = text_file + " " + reader.getPage(i).extractText()
+    target = open(tbc, 'w')
     target.truncate()
-    target.write(textfile)
+    target.write(text_file)
 
-#fileread(filenam,tobecalle)

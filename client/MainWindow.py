@@ -7,9 +7,10 @@ class initGUI(QWidget):
         super().__init__()
         self.initUI()
 
+
     def getFile(self):
         self.fileName = QFileDialog.getOpenFileName(self,"Open File")
-        self.path.setText(self.fileName)
+        self.path.setText(self.fileName[0])
 
     def initUI(self):
         self.upload = QPushButton("Upload", self)

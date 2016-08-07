@@ -5,14 +5,14 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFile
 from PyQt5.QtWebEngineWidgets import *
 
 def CreateControllerWindow():
+    global cw
     cw = controllerWindow()
     cw.show()
-    return cw
 
 def CreateAddWindow():
+    global a
     a = addWindow()
     a.show()
-    return a
 
 class addWindow(QWidget):
 
@@ -61,9 +61,6 @@ class controllerWindow(QWidget):
         self.web.show()
         self.web.load(QUrl(self.path.text()))
 
-    def createAddWindow(self):
-        addStudent = CreateAddWindow()
-
     def initUI(self):
 
         self.setFixedSize(800,800)
@@ -100,7 +97,7 @@ class controllerWindow(QWidget):
 
         self.upload.clicked.connect(self.getFile)
         self.previewButton.clicked.connect(self.preview)
-        self.add.clicked.connect(self.createAddWindow)
+        self.add.clicked.connect(CreateAddWindow)
 
         self.setLayout(self.grid)
 

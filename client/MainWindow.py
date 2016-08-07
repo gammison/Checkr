@@ -70,12 +70,24 @@ class addWindow(QWidget):
         self.initAddUI()
 
     def createText(self):
-        self.filePath = os.path.realpath("profiles/"+self.nameTextBox.text()+"qwr")
+        self.filePath = os.path.realpath("profiles/"+self.nameTextBox.text()+".txt")
         self.file = open(self.filePath, "a")
         self.file.write(self.nameTextBox.text())
         self.file = open(os.path.realpath("profiles/all_profiles.txt"), "a")
         self.file.write(self.nameTextBox.text()+"\n")
         self.file.close()
+
+
+        import CreateVector
+        onlyfiles = [f for f in os.listdir("text")]
+        finalFileName = ""
+        for temp in onlyfiles:
+            tfile = open("text/"+temp,"r")
+            if tfile.readline().__contains__(addWindow.nameTextBox.text()):
+                finalFileName = temp
+                break;
+        cv = CreateVector(finalFileName,addWindow.nameTextBox.text())
+
         self.close()
 
     def initAddUI(self):

@@ -162,6 +162,9 @@ class controllerWindow(QWidget):
         self.add.clicked.connect(CreateAddWindow)
         self.select.clicked.connect(CreateSelectWindow)
         self.select.clicked.connect(self.setCurrentStudent)
+        import svmtest
+        svm = svmtest.svmtest()
+        self.check.clicked.connect(svm.compare)
 
         self.setLayout(self.grid)
 

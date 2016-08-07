@@ -3,7 +3,34 @@ from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel
 from PyQt5.QtWebEngineWidgets import *
 
-class initGUI(QWidget):
+class addWindow(QWidget):
+
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setFixedSize(400,400)
+        self.setWindowTitle("Add Student")
+
+        self.WindowGrid = QGridLayout()
+
+        self.nameLabel = QLabel("Name:")
+        self.nameTextBox = QLineEdit()
+        self.addButton = QPushButton("Add", self)
+        self.cancelButton = QPushButton("Cancel",self)
+
+        self.WindowGrid.addWidget(self.nameLabel,1,0)
+        self.WindowGrid.addWidget(self.nameTextBox,1,1)
+        self.WindowGrid.addWidget(self.addButton,3,0)
+        self.WindowGrid.addWidget(self.cancelButton,3,1)
+
+        self.cancelButton.clicked.connect(self.close)
+
+        self.setLayout(self.addWindowGrid)
+        self.show()
+
+class controllerWindow(QWidget):
 
     def __init__(self):
         super().__init__()
@@ -16,30 +43,8 @@ class initGUI(QWidget):
     def preview(self):
         self.web.show()
         self.web.load(QUrl(self.path.text()))
-
     def createAddWindow(self):
-        #add window
-        self.addWindow = QWidget()
-        self.addWindow.setFixedSize(400,400)
-        self.addWindow.setWindowTitle("Add Student")
-
-        self.addWindowGrid = QGridLayout()
-
-        self.nameLabel = QLabel("Name:")
-        self.nameTextBox = QLineEdit()
-        self.addButton = QPushButton("Add", self)
-        self.cancelButton = QPushButton("Cancel",self)
-
-        self.addWindowGrid.addWidget(self.nameLabel,1,0)
-        self.addWindowGrid.addWidget(self.nameTextBox,1,1)
-        self.addWindowGrid.addWidget(self.addButton,3,0)
-        self.addWindowGrid.addWidget(self.cancelButton,3,1)
-
-        self.cancelButton.clicked.connect(self.close)
-
-        self.addWindow.setLayout(self.addWindowGrid)
-        self.addWindow.show()
-
+        addStudent = addWindow()
     def initUI(self):
 
         self.setFixedSize(800,800)
@@ -80,11 +85,11 @@ class initGUI(QWidget):
 
         self.setLayout(self.grid)
 
+        self.show()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     app.setApplicationDisplayName("Checkr")
-    window = initGUI()
-    window.show()
+    window = controllerWindow()
     sys.exit(app.exec_())
 

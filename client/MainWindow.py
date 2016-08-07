@@ -1,7 +1,7 @@
 import sys
 import os
 from PyQt5.QtCore import QUrl
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel, QComboBox
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel, QComboBox, QHeaderView
 from PyQt5.QtNetwork import *
 from PyQt5.QtWebEngineWidgets import *
 
@@ -14,19 +14,34 @@ def CreateAddWindow():
     global a
     a = addWindow()
     a.show()
+
 def CreateSelectWindow():
     global sw
     sw = selectWindow()
     sw.show()
 
 class selectWindow(QWidget):
+
     def __init__(self):
         super().__init__()
         self.initAddUI()
 
+    def generate_list(self):
+        with open("profiles/all_profiles.txt", "r") as f:
+            self.list_of_names = [line.strip() for line  in f]
+        for e in self.list_of_names:
+            self.dropDown.addItem(e)
+
+    def selectStudent(self):
+        self.selectedStudent = self.dropDown.currentText()
+
+    def getSelectedStudent(self):
+        return self.selectedStudent
+
     def initAddUI(self):
         self.setFixedSize(200,200)
         self.setWindowTitle("Select Student")
+        self.selectedStudent = ""
 
         self.windowGrid = QGridLayout()
 
@@ -41,7 +56,10 @@ class selectWindow(QWidget):
         self.windowGrid.addWidget(self.select,2,0)
         self.windowGrid.addWidget(self.cancel,2,1)
 
+        self.generate_list()
+
         self.cancel.clicked.connect(self.close)
+        self.select.clicked.connect(self.selectStudent)
 
         self.setLayout(self.windowGrid)
 
@@ -54,9 +72,9 @@ class addWindow(QWidget):
     def createText(self):
         self.filePath = os.path.realpath("profiles/"+self.nameTextBox.text()+".txt")
         self.file = open(self.filePath, "a")
-        self.file.write(self.nameTextBox.text())
-        self.file = open(os.path.realpath("profiles/all_profiles.txt"), "r+")
-        self.file.write(self.nameTextBox.text())
+        self.file.write(self.nameTextBox.text()+"\n[]\n[]")
+        self.file = open(os.path.realpath("profiles/all_profiles.txt"), "a")
+        self.file.write(self.nameTextBox.text()+"\n")
         self.file.close()
         self.close()
 
@@ -103,13 +121,17 @@ class controllerWindow(QWidget):
         self.upload.setToolTip("Upload student work")
         self.upload.resize(self.upload.sizeHint())
 
+        self.currentStudent = "CurrentStudent"
+
         self.path = QLineEdit()
 
         self.grid = QGridLayout()
         self.grid.setSpacing(10)
 
-        self.grid.addWidget(self.upload,1,0)
-        self.grid.addWidget(self.path,1,1,1,5)
+
+        self.grid.addWidget(self.currentStudentLabel1,2,6)
+        self.grid.addWidget(self.upload,2,0)
+        self.grid.addWidget(self.path,2,1,1,5)
 
         self.previewButton = QPushButton("Preview",self)
         self.previewButton.setToolTip("Preview selected PDF")
@@ -124,11 +146,11 @@ class controllerWindow(QWidget):
         self.web.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
         self.web.settings = QWebEngineView
 
-        self.grid.addWidget(self.add,8,2)
-        self.grid.addWidget(self.select,8,3)
-        self.grid.addWidget(self.check,8,4)
-        self.grid.addWidget(self.web,2,0,4,0)
-        self.grid.addWidget(self.previewButton,1,6)
+        self.grid.addWidget(self.add,9,2)
+        self.grid.addWidget(self.select,9,3)
+        self.grid.addWidget(self.check,9,4)
+        self.grid.addWidget(self.web,3,0,4,0)
+        self.grid.addWidget(self.previewButton,2,6)
 
         self.upload.clicked.connect(self.getFile)
         self.previewButton.clicked.connect(self.preview)
@@ -138,6 +160,7 @@ class controllerWindow(QWidget):
         self.setLayout(self.grid)
 
 if __name__ == '__main__':
+    open("profiles/all_profiles.txt","w").close()
     app = QApplication(sys.argv)
     app.setApplicationDisplayName("Checkr")
     window = CreateControllerWindow()

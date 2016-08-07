@@ -1,7 +1,15 @@
 import numpy as np
+import os
 from sklearn import svm
-X = [[0, 0], [1, 1], [2, 2]] #training samples of n samples, n features
-y = [0, 1,2 ] # class labels of n samples
+
+onlyfiles=[f for f in os.listdir("\\profiles")]
+for temp in onlyfiles:
+    tfile = open(temp,'r')
+    tfile.readline()
+    tfile.readline()
+    X.app
+X=[]#X = [[0, 0], [1, 1], [2, 2]] #training samples of n samples, n features
+y = #[0, 1,2 ] # class labels of n samples
 clf = svm.SVC()
 print(clf.fit(X, y))
 print(clf.predict([[0,1]])) #predict what arry in the training samples this data set is closest to in this case label 1

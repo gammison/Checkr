@@ -5,21 +5,33 @@ import CreateVector
 
 def compare(filepath):
     targetVector = CreateVector.createVectorNoFile(filepath)
-    print(targetVector)
+
     onlyfiles = [f for f in os.listdir("profiles")]
+    print(onlyfiles)
     X = []
     y = []
     for temp in onlyfiles:
         tfile = open('profiles/'+temp, 'r')
-        print(tfile)
+
         y.append(tfile.readline())
-        print(y)
-        tomake = tfile.readline().split(",")
-        print(tomake)
-        for k in tomake:
-            w = k.split(" ")
+
+        sets = tfile.readline().split('\n')
+
+
+        for k in sets:
+            k = k.split(',')
+            print(k)
+            w = []
+            for n in k:
+                if n.isnumeric():
+                    w.append(int(n))
+            if w is targetVector:
+                w =[]
             X.append(w)
+
     clf = svm.SVC()
+    clf.fit(X, y)
 
 
-compare('text')
+
+compare('AlbertCamusThePlague.txt')

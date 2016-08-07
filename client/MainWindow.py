@@ -37,9 +37,9 @@ class selectWindow(QWidget):
         self.select = QPushButton("Select",self)
         self.cancel = QPushButton("Cancel",self)
 
-        self.windowGrid.addWidget(1,0,1,2)
-        self.windowGrid.addWidget(2,0)
-        self.windowGrid.addWidget(2,1)
+        self.windowGrid.addWidget(self.dropDown,1,0,1,2)
+        self.windowGrid.addWidget(self.select,2,0)
+        self.windowGrid.addWidget(self.cancel,2,1)
 
         self.cancel.clicked.connect(self.close())
 

@@ -38,14 +38,14 @@ class initGUI(QWidget):
         check = QPushButton("Check",self)
         check.setToolTip("Check work against past work")
 
-        web = QWebEngineView()
-        web.settings().setAttribute(QWebEngineSettings.PluginsEnabled,True)
+        self.web = QWebEngineView()
+        self.web.settings().setAttribute(QWebEngineSettings.PluginsEnabled,True)
 
         grid.addWidget(add,8,1)
         grid.addWidget(select,8,2)
         grid.addWidget(check,8,3)
 
-        grid.addWidget(web,2,0,5,0)
+        grid.addWidget(self.web,2,0,5,0)
 
         self.upload.clicked.connect(self.getFile)
 

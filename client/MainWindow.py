@@ -1,7 +1,7 @@
 import sys
 import os
 from PyQt5.QtCore import *
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel, QComboBox
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel, QComboBox, QTextEdit
 from PyQt5.QtWebEngineWidgets import *
 
 def CreateControllerWindow():
@@ -108,10 +108,9 @@ class controllerWindow(QWidget):
     def getFile(self):
         self.fileName = QFileDialog.getOpenFileName(self,"Open File")
         self.path.setText(self.fileName[0])
-
-    def preview(self):
-        self.web.show()
-        self.web.load(QUrl(self.path.text()))
+        tempFile = open("preview/filePath.txt","a")
+        tempFile.write(self.fileName[0])
+        tempFile.close()
 
     def setCurrentStudent(self):
         self.currentStudentFile = open("CurrentStudent.txt","r")
@@ -136,10 +135,8 @@ class controllerWindow(QWidget):
 
         self.grid.addWidget(self.currentStudentLabel,1,0,1,6)
         self.grid.addWidget(self.upload,2,0)
-        self.grid.addWidget(self.path,2,1,1,5)
+        self.grid.addWidget(self.path,2,1,1,6)
 
-        self.previewButton = QPushButton("Preview",self)
-        self.previewButton.setToolTip("Preview selected PDF")
         self.add = QPushButton("Add", self)
         self.add.setToolTip("Add student profiles")
         self.select = QPushButton("Select",self)
@@ -147,28 +144,23 @@ class controllerWindow(QWidget):
         self.check = QPushButton("Check",self)
         self.check.setToolTip("Check work against past work")
 
-        self.web = QWebEngineView()
-        self.web.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
-        self.web.settings = QWebEngineView
-s
+        self.screen = QTextEdit()
+        self.screen.setReadOnly(True)
+
         self.grid.addWidget(self.add,9,2)
         self.grid.addWidget(self.select,9,3)
         self.grid.addWidget(self.check,9,4)
-        self.grid.addWidget(self.web,3,0,4,0)
-        self.grid.addWidget(self.previewButton,2,6)
+        self.grid.addWidget(self.screen,3,0,4,7)
 
         self.upload.clicked.connect(self.getFile)
-        self.previewButton.clicked.connect(self.preview)
         self.add.clicked.connect(CreateAddWindow)
         self.select.clicked.connect(CreateSelectWindow)
         self.select.clicked.connect(self.setCurrentStudent)
-        import svmtest
-        svm = svmtest.svmtest()
-        self.check.clicked.connect(svm.compare)
 
         self.setLayout(self.grid)
 
 if __name__ == '__main__':
+    #resets CurrentStudent.txt
     newFile = open("CurrentStudent.txt","w")
     newFile.write("CurrentStudent")
     newFile.close()

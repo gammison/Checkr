@@ -1,7 +1,7 @@
 import sys
 import os
 from PyQt5.QtCore import QUrl
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel, QComboBox
 from PyQt5.QtNetwork import *
 from PyQt5.QtWebEngineWidgets import *
 
@@ -14,6 +14,36 @@ def CreateAddWindow():
     global a
     a = addWindow()
     a.show()
+def CreateSelectWindow():
+    global sw
+    sw = selectWindow()
+    sw.show()
+
+class selectWindow(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.initAddUI()
+
+    def initAddUI(self):
+        self.setFixedSize(200,200)
+        self.setWindowTitle("Select Student")
+
+        self.windowGrid = QGridLayout()
+
+        #List that contains student names
+        self.list_of_names = []
+
+        self.dropDown = QComboBox();
+        self.select = QPushButton("Select",self)
+        self.cancel = QPushButton("Cancel",self)
+
+        self.windowGrid.addWidget(1,0,1,2)
+        self.windowGrid.addWidget(2,0)
+        self.windowGrid.addWidget(2,1)
+
+        self.cancel.clicked.connect(self.close())
+
+        self.setLayout(self.windowGrid)
 
 class addWindow(QWidget):
 
@@ -103,6 +133,7 @@ class controllerWindow(QWidget):
         self.upload.clicked.connect(self.getFile)
         self.previewButton.clicked.connect(self.preview)
         self.add.clicked.connect(CreateAddWindow)
+        self.select.clicked.connect(CreateSelectWindow)
 
         self.setLayout(self.grid)
 

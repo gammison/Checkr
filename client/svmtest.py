@@ -9,10 +9,10 @@ def compare(filepath):
     y = []  # [0, 1,2 ] # class labels of n samples
     for temp in onlyfiles:
         tfile = open(temp, 'r')
-        tfile.readline()
+        y.append(tfile.readline())
         tfile.readline()
         X.append(tfile.readline())
-        y.append(tfile.readline())
+      
 
     clf = svm.SVC()
     print(clf.fit(X, y))

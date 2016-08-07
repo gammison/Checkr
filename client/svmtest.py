@@ -3,6 +3,14 @@ import os
 from sklearn import svm
 import CreateVector
 
+
+
+
+
+
+
+
+
 def compare(filepath):
     targetVector = CreateVector.createVectorNoFile(filepath)
 
@@ -25,13 +33,12 @@ def compare(filepath):
             for n in k:
                 if n.isnumeric():
                     w.append(int(n))
-            if w is targetVector:
-                w =[]
+
             X.append(w)
 
     clf = svm.SVC()
-    clf.fit(X, y)
-
-
+    print(targetVector)
+    print(X, len(X))
+    print(y, len(y))
 
 compare('AlbertCamusThePlague.txt')

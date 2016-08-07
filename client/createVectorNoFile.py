@@ -1,7 +1,6 @@
 from nltk import word_tokenize, sent_tokenize, FreqDist as fd
 
-
-def createVector(filename, last):
+def createVectorNoFile(filename):
     #Lexical
     doc = open('text/'+filename,'r')
     DocString = doc.read()
@@ -98,11 +97,5 @@ def createVector(filename, last):
     data+=[charactercount,alphebetcount,uppercasecount,digitcount,whitespacecount,tab_and_spacecount]+letcur+\
           [totalwordcount,total_dif_words,totalshortwords,totalcharinwordsC,freq_twice_ocur_words,freq_once_ocur_words]\
           + freqwords+punclist
-    read = open('profiles/'+last+'.txt', 'a')
-    read.write('\n')
-    for a in data:
-        read.write(str(a)+',')
+    return data
 
-    read.write(" ")
-
-createVector.createVector('AlbertCamusThePlague.txt', 'Camus')

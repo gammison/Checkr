@@ -4,19 +4,29 @@ from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel
 from PyQt5.QtWebEngineWidgets import *
 
+def CreateControllerWindow():
+    cw = controllerWindow()
+    cw.show()
+    return cw
+
+def CreateAddWindow():
+    a = addWindow()
+    a.show()
+    return a
+
 class addWindow(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.initUI()
+        self.initAddUI()
 
     def createText(self):
-        filePath = os.path.realpath("profiles/"+self.nameTextBox.text()+".txt")
-        print(os.path.exists(filePath))
-        file = open(filePath, "r+")
-        file.write(self.nameTextBox.text())
+        self.filePath = os.path.realpath("profiles/"+self.nameTextBox.text()+".txt")
+        self.file = open(self.filePath, "r+")
+        self.file.write(self.nameTextBox.text())
+        self.close()
 
-    def initUI(self):
+    def initAddUI(self):
         self.setFixedSize(400,400)
         self.setWindowTitle("Add Student")
 
@@ -26,17 +36,16 @@ class addWindow(QWidget):
         self.nameTextBox = QLineEdit()
         self.addButton = QPushButton("Add", self)
         self.cancelButton = QPushButton("Cancel",self)
-
-        self.WindowGrid.addWidget(self.nameLabel,1,0)
-        self.WindowGrid.addWidget(self.nameTextBox,1,2)
-        self.WindowGrid.addWidget(self.addButton,3,1)
-        self.WindowGrid.addWidget(self.cancelButton,3,2)
+        print("Loaded!")
+        self.WindowGrid.addWidget(self.nameLabel,1,1)
+        self.WindowGrid.addWidget(self.nameTextBox,1,2,1,3)
+        self.WindowGrid.addWidget(self.addButton,3,0)
+        self.WindowGrid.addWidget(self.cancelButton,3,3)
 
         self.cancelButton.clicked.connect(self.close)
         self.addButton.clicked.connect(self.createText)
 
         self.setLayout(self.WindowGrid)
-        self.show()
 
 class controllerWindow(QWidget):
 
@@ -51,9 +60,10 @@ class controllerWindow(QWidget):
     def preview(self):
         self.web.show()
         self.web.load(QUrl(self.path.text()))
+
     def createAddWindow(self):
-        addStudent = addWindow()
-        addStudent.__init__()
+        addStudent = CreateAddWindow()
+
     def initUI(self):
 
         self.setFixedSize(800,800)
@@ -68,7 +78,7 @@ class controllerWindow(QWidget):
         self.grid.setSpacing(10)
 
         self.grid.addWidget(self.upload,1,0)
-        self.grid.addWidget(self.path,1,1,1,4)
+        self.grid.addWidget(self.path,1,1,1,5)
 
         self.previewButton = QPushButton("Preview",self)
         self.previewButton.setToolTip("Preview selected PDF")
@@ -82,11 +92,11 @@ class controllerWindow(QWidget):
         self.web = QWebEngineView()
         self.web.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
 
-        self.grid.addWidget(self.add,8,1.5)
-        self.grid.addWidget(self.select,8,2.5)
-        self.grid.addWidget(self.check,8,3.5)
+        self.grid.addWidget(self.add,8,2)
+        self.grid.addWidget(self.select,8,3)
+        self.grid.addWidget(self.check,8,4)
         self.grid.addWidget(self.web,2,0,4,0)
-        self.grid.addWidget(self.previewButton,1,5)
+        self.grid.addWidget(self.previewButton,1,6)
 
         self.upload.clicked.connect(self.getFile)
         self.previewButton.clicked.connect(self.preview)
@@ -94,11 +104,9 @@ class controllerWindow(QWidget):
 
         self.setLayout(self.grid)
 
-        self.show()
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     app.setApplicationDisplayName("Checkr")
-    window = controllerWindow()
+    window = CreateControllerWindow()
     sys.exit(app.exec_())
 

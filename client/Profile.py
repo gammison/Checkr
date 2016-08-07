@@ -33,9 +33,13 @@ class Profile():
     def set_y_vector(self):
         y_vector = self.path.readline()
         print(y_vector)
-        for array in y_vector.split(" "):
-            print(array)
-            self.y_vector.append(array)
+        y_vector = re.sub('[\[]', '', y_vector)
+        y_vector = y_vector.replace(']', '')
+        y_vector = y_vector.replace(',', ' ')
+        for i in y_vector.split(' '):
+            if i.isnumeric():
+                self.y_vector.append(i)
+        print(y_vector)
 
     # Accessing files
     def get_profile_name(self):
@@ -54,9 +58,9 @@ path = os.path.realpath('profiles/test.txt')
 test = Profile(path)
 test.set_profile_name()
 test.set_file_paths()
-test.set_y_vector()
 test.set_x_vector()
+test.set_y_vector()
 print(test.get_profile_name())
 print(test.get_file_paths())
-# print(test.get_x_vector())
+print(test.get_x_vector())
 print(test.get_y_vector())

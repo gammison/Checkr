@@ -18,7 +18,6 @@ class Profile():
         line_path = self.path.readline()
         for line in line_path.split(" "):
             self.file_path.append(line)
-        return self.file_path
 
     def set_x_vector(self):
         x_vector = self.path.readline()

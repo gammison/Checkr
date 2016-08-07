@@ -41,7 +41,7 @@ class selectWindow(QWidget):
         self.windowGrid.addWidget(self.select,2,0)
         self.windowGrid.addWidget(self.cancel,2,1)
 
-        self.cancel.clicked.connect(self.close())
+        self.cancel.clicked.connect(self.close)
 
         self.setLayout(self.windowGrid)
 

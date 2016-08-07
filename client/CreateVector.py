@@ -1,9 +1,9 @@
 from nltk import word_tokenize, sent_tokenize, FreqDist as fd
 
 
-def createVector(filename):
+def createVector(filename, last):
     #Lexical
-    doc = open(filename,'r')
+    doc = open('text/'+filename,'r')
     DocString = doc.read()
     data = []
     charactercount = len(DocString)
@@ -55,7 +55,6 @@ def createVector(filename):
         if x=='"':
             punclist[7]+=1
 
-    print(punclist)
     # A-Z count
     letcur = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     for line in enumerate(DocString):
@@ -86,7 +85,6 @@ def createVector(filename):
     total_dif_words=len(freqdist)
     freq_once_ocur_words=len(freqdist.hapaxes())
     freqwords = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    print(freqdist)
     for x in freqdist:
         if freqdist[x]<=20:
             if freqdist[x]>=3:
@@ -100,7 +98,9 @@ def createVector(filename):
     data+=[charactercount,alphebetcount,uppercasecount,digitcount,whitespacecount,tab_and_spacecount]+letcur+\
           [totalwordcount,total_dif_words,totalshortwords,totalcharinwordsC,freq_twice_ocur_words,freq_once_ocur_words]\
           + freqwords+punclist
+    read = open('profiles/'+last+'txt', 'a')
+    read.write('\n')
+    for a in data:
+        read.write(str(a)+',')
 
-    return data
-
-
+    read.write(" ")

@@ -10,13 +10,16 @@ class ToTex():
 
     def doc_to_text(self):
         doc = docx.Document(self.path)
-        tbc = self.path[-5]
-        text_file = open('text/'+tbc+'.txt', 'w')
+        tbc = self.path
+        tbc = tbc[self.path.rfind('/'):self.path.rfind('.')]
+        text_file = open('text/'+tbc+'txt', 'w')
         for para in doc.paragraphs:
             text_file.write(para.text + '\n')
 
     def file_read(self):
-        tbc = self.path[-5]
+        tbc = self.path
+        tbc = tbc[self.path.rfind('/'):self.path.rfind('.')]
+
         # rb for read binary mode
         pdf_obj = open(self.path, 'rb')
         reader = PyPDF2.PdfFileReader(pdf_obj)
@@ -25,6 +28,6 @@ class ToTex():
 
         for i in range(reader.numPages):
             text_file = text_file + " " + reader.getPage(i).extractText()
-        target = open('text/'+tbc+'.txt', 'w')
+        target = open('text/'+tbc+'txt', 'w')
         target.truncate()
         target.write(text_file)

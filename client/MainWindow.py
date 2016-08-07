@@ -70,9 +70,9 @@ class addWindow(QWidget):
         self.initAddUI()
 
     def createText(self):
-        self.filePath = os.path.realpath("profiles/"+self.nameTextBox.text()+".txt")
+        self.filePath = os.path.realpath("profiles/"+self.nameTextBox.text()+"qwr")
         self.file = open(self.filePath, "a")
-        self.file.write(self.nameTextBox.text()+"\n[]\n[]")
+        self.file.write(self.nameTextBox.text())
         self.file = open(os.path.realpath("profiles/all_profiles.txt"), "a")
         self.file.write(self.nameTextBox.text()+"\n")
         self.file.close()
@@ -108,6 +108,16 @@ class controllerWindow(QWidget):
     def getFile(self):
         self.fileName = QFileDialog.getOpenFileName(self,"Open File")
         self.path.setText(self.fileName[0])
+        import ToTex
+        text = ToTex.ToTex(self.path.text())
+
+        gateway = self.path.text()
+        gateway = gateway[-5:]
+        print(gateway)
+        if gateway == '.docx':
+            text.doc_to_text()
+        else:
+            text.file_read()
 
     def setCurrentStudent(self):
         self.currentStudentFile = open("CurrentStudent.txt","r")
@@ -151,11 +161,6 @@ class controllerWindow(QWidget):
         self.grid.addWidget(self.screen,3,0,4,7)
 
         self.upload.clicked.connect(self.getFile)
-        import ToTex
-        ToTex.__init__(self.path.text())
-        gateway = self.path.text()
-        if gateway is 'docx':
-            ToTex.doc_to_text()
 
         self.add.clicked.connect(CreateAddWindow)
         self.select.clicked.connect(CreateSelectWindow)

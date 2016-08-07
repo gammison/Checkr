@@ -18,3 +18,4 @@ def file_read(filename, tbc):
     target.truncate()
     target.write(text_file)
 
+file_read('G:\\Books\\AlbertCamusThePlague.pdf','test.txt')

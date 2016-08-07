@@ -39,7 +39,6 @@ class initGUI(QWidget):
 
         self.web = QWebEngineView()
         self.web.settings().setAttribute(QWebEngineSettings.PluginsEnabled,True)
-
         grid.addWidget(add,8,1)
         grid.addWidget(select,8,2)
         grid.addWidget(check,8,3)

@@ -18,7 +18,14 @@ class Profile():
         return self.file_path
 
     def set_x_vector(self):
-        pass
+        x_vector = self.path.readline()
+        for array in x_vector:
+            temp_array = []
+            for single in array:
+                print(single)
+
+                temp_array.append(single)
+            self.x_vector.append(temp_array)
 
     def set_y_vector(self):
         pass
@@ -39,6 +46,7 @@ class Profile():
 test = Profile('test.txt')
 test.set_profile_name()
 test.set_file_paths()
-
+test.set_x_vector()
 print(test.get_profile_name())
 print(test.get_file_paths())
+print(test.get_x_vector())

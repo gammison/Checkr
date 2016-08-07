@@ -160,6 +160,7 @@ class controllerWindow(QWidget):
         self.setLayout(self.grid)
 
 if __name__ == '__main__':
+    #resets CurrentStudent.txt
     newFile = open("CurrentStudent.txt","w")
     newFile.write("CurrentStudent")
     newFile.close()

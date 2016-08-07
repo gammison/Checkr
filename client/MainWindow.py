@@ -1,4 +1,5 @@
 import sys
+import os
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel
 from PyQt5.QtWebEngineWidgets import *
@@ -8,6 +9,12 @@ class addWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
+
+    def createText(self):
+        filePath = os.path.realpath("profiles/"+self.nameTextBox.text()+".txt")
+        print(os.path.exists(filePath))
+        file = open(filePath, "r+")
+        file.write(self.nameTextBox.text())
 
     def initUI(self):
         self.setFixedSize(400,400)
@@ -21,11 +28,12 @@ class addWindow(QWidget):
         self.cancelButton = QPushButton("Cancel",self)
 
         self.WindowGrid.addWidget(self.nameLabel,1,0)
-        self.WindowGrid.addWidget(self.nameTextBox,1,1)
-        self.WindowGrid.addWidget(self.addButton,3,0)
-        self.WindowGrid.addWidget(self.cancelButton,3,1)
+        self.WindowGrid.addWidget(self.nameTextBox,1,2)
+        self.WindowGrid.addWidget(self.addButton,3,1)
+        self.WindowGrid.addWidget(self.cancelButton,3,2)
 
         self.cancelButton.clicked.connect(self.close)
+        self.addButton.clicked.connect(self.createText)
 
         self.setLayout(self.WindowGrid)
         self.show()

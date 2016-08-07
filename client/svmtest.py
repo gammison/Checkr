@@ -1,6 +1,5 @@
 import numpy as np
 import os
-import CreateVector
 from sklearn import svm
 class svmtest():
     def compare(filepath):
@@ -17,10 +16,5 @@ class svmtest():
                 w = k.split(" ")
                 X.append(w)
         clf = svm.SVC()
-        print(clf.fit(X, y))
-        #print(clf.predict(
-         #   CreateVector.createVector(filepath))  # predict what arry in the training samples this data set is closest to in this case label 1
-        #print(clf.support_vectors_)  # get support vectors, which are a subset of the training data
-        #print(clf.support_)  # get indices of the support vectors
-        #print(clf.n_support_)  # the number of support vectors for each class
-        return clf.predict(CreateVector.createVector(filepath))
+
+

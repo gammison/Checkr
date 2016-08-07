@@ -18,7 +18,6 @@ class Profile():
         line_path = self.path.readline()
         for line in line_path.split(" "):
             self.file_path.append(line)
-        return self.file_path
 
     def set_x_vector(self):
         x_vector = self.path.readline()
@@ -33,6 +32,7 @@ class Profile():
 
     def set_y_vector(self):
         y_vector = self.path.readline()
+        print(y_vector)
         for array in y_vector.split(" "):
             print(array)
             self.y_vector.append(array)
@@ -58,5 +58,5 @@ test.set_y_vector()
 test.set_x_vector()
 print(test.get_profile_name())
 print(test.get_file_paths())
-print(test.get_x_vector())
+# print(test.get_x_vector())
 print(test.get_y_vector())

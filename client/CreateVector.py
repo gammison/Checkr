@@ -1,4 +1,6 @@
-import from nltk import word_tokenize, sent_tokenize, FreqDist as fd
+from nltk import word_tokenize, sent_tokenize, FreqDist as fd
+
+
 def createVector(filename):
     #Lexical
     doc = open(filename,'r')
@@ -23,12 +25,12 @@ def createVector(filename):
     freq_once_ocur_words = 0  # Hapax legomena
     freq_twice_ocur_words = 0  # Hapax dislegomena
     Yule_K_measure = 0  # vocab richness def by yule
-    Simpson_D_measure  # vocab rich def by simpson
-    Sichel_S_measure  # vocab rich by sichele
-    Brunet_W_measure  # vocab rich by Brune
-    Honore_R_measure  # vocab rich by Honre
+    Simpson_D_measure = 0  # vocab rich def by simpson
+    Sichel_S_measure = 0 # vocab rich by sichele
+    Brunet_W_measure  = 0# vocab rich by Brune
+    Honore_R_measure  = 0# vocab rich by Honre
     Freq_dist_Wordlen = 0  # need 20 of these
-    for x in DocString
+    for x in DocString:
         if x.isalpha():
             alphebetcount+=1
         if x.isdigit():
@@ -42,8 +44,8 @@ def createVector(filename):
         tab_and_spacecount+=line.count('\t')
         tab_and_spacecount+=line.count(' ')
 
-        for i in range(0-25):
-            letcur[i]+= line.count(chr(i+65))+line.count(chr[i+97])
+        for i in range(0, 25):
+            letcur[i] = letcur[i] + line.count(chr(i+65))+line.count(chr(i+97))
 
     words = word_tokenize(DocString, language='english')
     totalwordcount = len(words)
@@ -58,7 +60,7 @@ def createVector(filename):
         senttemp+=len(x)
     avg_sent_len_chars=senttemp/len(sents)
     wordtemp = 0
-    for x in sents
+    for x in sents:
         wordtemp+=len(word_tokenize(x,language='english'))
     avg_sent_len_word = wordtemp/len(sents)
     freqdist = fd(DocString)
@@ -80,3 +82,5 @@ def createVector(filename):
           [totalwordcount,total_dif_words,totalshortwords,totalcharinwordsC,freq_twice_ocur_words,freq_once_ocur_words]
 
     return data
+
+print(createVector('G:\\git_repos\\checkr\\client\\test.txt'))

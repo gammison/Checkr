@@ -1,8 +1,7 @@
 import sys
 import os
-from PyQt5.QtCore import QUrl
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel, QComboBox, QHeaderView
-from PyQt5.QtNetwork import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel, QComboBox
 from PyQt5.QtWebEngineWidgets import *
 
 def CreateControllerWindow():
@@ -32,14 +31,12 @@ class selectWindow(QWidget):
         for e in self.list_of_names:
             self.dropDown.addItem(e)
 
-    def selectStudent(self):
-        self.selectedStudent = self.dropDown.currentText()
-
     def getSelectedStudent(self):
-        return self.selectedStudent
+        self.selectedStudent = self.dropDown.currentText()
+        self.close()
 
     def initAddUI(self):
-        self.setFixedSize(200,200)
+        self.setFixedSize(250,200)
         self.setWindowTitle("Select Student")
         self.selectedStudent = ""
 
@@ -59,7 +56,7 @@ class selectWindow(QWidget):
         self.generate_list()
 
         self.cancel.clicked.connect(self.close)
-        self.select.clicked.connect(self.selectStudent)
+        self.select.clicked.connect(self.getSelectedStudent)
 
         self.setLayout(self.windowGrid)
 
@@ -79,7 +76,7 @@ class addWindow(QWidget):
         self.close()
 
     def initAddUI(self):
-        self.setFixedSize(200,200)
+        self.setFixedSize(250,200)
         self.setWindowTitle("Add Student")
 
         self.WindowGrid = QGridLayout()
@@ -121,18 +118,13 @@ class controllerWindow(QWidget):
         self.upload.setToolTip("Upload student work")
         self.upload.resize(self.upload.sizeHint())
 
-        self.currentStudent = "CurrentStudent"
-        #current
-
         self.path = QLineEdit()
 
         self.grid = QGridLayout()
         self.grid.setSpacing(10)
 
-
-        self.grid.addWidget(self.currentStudentLabel1,2,6)
-        self.grid.addWidget(self.upload,2,0)
-        self.grid.addWidget(self.path,2,1,1,5)
+        self.grid.addWidget(self.upload,1,0)
+        self.grid.addWidget(self.path,1,1,1,5)
 
         self.previewButton = QPushButton("Preview",self)
         self.previewButton.setToolTip("Preview selected PDF")
@@ -147,11 +139,11 @@ class controllerWindow(QWidget):
         self.web.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
         self.web.settings = QWebEngineView
 
-        self.grid.addWidget(self.add,9,2)
-        self.grid.addWidget(self.select,9,3)
-        self.grid.addWidget(self.check,9,4)
-        self.grid.addWidget(self.web,3,0,4,0)
-        self.grid.addWidget(self.previewButton,2,6)
+        self.grid.addWidget(self.add,8,2)
+        self.grid.addWidget(self.select,8,3)
+        self.grid.addWidget(self.check,8,4)
+        self.grid.addWidget(self.web,2,0,4,0)
+        self.grid.addWidget(self.previewButton,1,6)
 
         self.upload.clicked.connect(self.getFile)
         self.previewButton.clicked.connect(self.preview)

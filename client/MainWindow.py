@@ -22,11 +22,10 @@ class addWindow(QWidget):
 
     def createText(self):
         self.filePath = os.path.realpath("profiles/"+self.nameTextBox.text()+".txt")
-        print(self.filePath)
-        self.file = open(self.filePath, "r+")
+        self.file = open(self.filePath, "a")
         self.file.write(self.nameTextBox.text())
         self.file.close()
-        print("added")
+        self.close();
 
     def initAddUI(self):
         self.setFixedSize(400,400)

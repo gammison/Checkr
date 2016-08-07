@@ -119,7 +119,7 @@ class controllerWindow(QWidget):
 
     def initUI(self):
 
-        self.setFixedSize(800,800)
+        self.setFixedSize(600,600)
 
         self.upload = QPushButton("Upload", self)
         self.upload.setToolTip("Upload student work")

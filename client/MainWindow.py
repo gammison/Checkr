@@ -150,7 +150,7 @@ class controllerWindow(QWidget):
         self.web = QWebEngineView()
         self.web.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
         self.web.settings = QWebEngineView
-
+s
         self.grid.addWidget(self.add,9,2)
         self.grid.addWidget(self.select,9,3)
         self.grid.addWidget(self.check,9,4)

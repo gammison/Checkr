@@ -18,7 +18,7 @@ class svmtest():
             X.append(tfile.readline())
 
 
-        clf = svm.SVC()
+        clf = svm.SVC()s
         print(clf.fit(X, y))
         #print(clf.predict(
          #   CreateVector.createVector(filepath))  # predict what arry in the training samples this data set is closest to in this case label 1

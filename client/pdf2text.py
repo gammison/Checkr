@@ -16,6 +16,6 @@ def file_read(filename, tbc):
         text_file = text_file + " " + reader.getPage(i).extractText()
     target = open(tbc, 'w')
     target.truncate()
-    target.write(text_file)
+    target.write(texts_file)
 
 file_read('G:\\Books\\AlbertCamusThePlague.pdf','test.txt')

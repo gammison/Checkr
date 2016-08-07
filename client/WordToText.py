@@ -1,8 +1,8 @@
 import docx
 
-doc = docx.Document('path here')
+doc = docx.Document('/Users/Latter/Documents/UVa Problems.docx')
 paragraph_length = len(doc.paragraphs)
-text_file = open('name.txt', 'w')
+text_file = open('text/uva.txt', 'w')
 for para in doc.paragraphs:
-    text_file.write(para.text)
+    text_file.write(para.text+'\n')
 

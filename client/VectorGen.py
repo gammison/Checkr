@@ -9,7 +9,7 @@ def writetoprofile(bookfile_path,profile_path):
     # path to the text file
     #profile_string_array[1] = profile_string_array[1].insert(len(profile_string_array[1]) - 1," "+bookfile_path)
     profile = open(profile_path,'w')
-    string x = ''
+    x = ''
     i = 0
     for k in solved:
         i+=1

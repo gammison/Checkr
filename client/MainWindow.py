@@ -151,6 +151,12 @@ class controllerWindow(QWidget):
         self.grid.addWidget(self.screen,3,0,4,7)
 
         self.upload.clicked.connect(self.getFile)
+        import ToTex
+        ToTex.__init__(self.path.text())
+        gateway = self.path.text()
+        if gateway is 'docx':
+            ToTex.doc_to_text()
+
         self.add.clicked.connect(CreateAddWindow)
         self.select.clicked.connect(CreateSelectWindow)
         self.select.clicked.connect(self.setCurrentStudent)

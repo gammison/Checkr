@@ -27,7 +27,7 @@ class addWindow(QWidget):
 
         self.cancelButton.clicked.connect(self.close)
 
-        self.setLayout(self.addWindowGrid)
+        self.setLayout(self.WindowGrid)
         self.show()
 
 class controllerWindow(QWidget):
@@ -45,6 +45,7 @@ class controllerWindow(QWidget):
         self.web.load(QUrl(self.path.text()))
     def createAddWindow(self):
         addStudent = addWindow()
+        addStudent.__init__()
     def initUI(self):
 
         self.setFixedSize(800,800)

@@ -1,3 +1,6 @@
+import os
+
+
 class Profile():
 
     def __init__(self, path):
@@ -22,7 +25,9 @@ class Profile():
         for array in x_vector:
             temp_array = []
             for single in array:
-                print(single)
+                check = "[],"
+                if check in single:
+                    single.replace(check, '')
 
                 temp_array.append(single)
             self.x_vector.append(temp_array)
@@ -43,7 +48,9 @@ class Profile():
     def get_y_vector(self):
         return self.y_vector
 
-test = Profile('test.txt')
+path = os.path.realpath('/profiles/test.txt')
+print(os.path.exists(path))
+test = Profile(path)
 test.set_profile_name()
 test.set_file_paths()
 test.set_x_vector()

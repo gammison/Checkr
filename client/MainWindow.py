@@ -33,6 +33,9 @@ class selectWindow(QWidget):
 
     def getSelectedStudent(self):
         self.selectedStudent = self.dropDown.currentText()
+        self.selectedStudentFile = open("CurrentStudent.txt","w")
+        self.selectedStudentFile.write(self.selectedStudent)
+        self.selectedStudentFile.close()
         self.close()
 
     def initAddUI(self):
@@ -110,6 +113,11 @@ class controllerWindow(QWidget):
         self.web.show()
         self.web.load(QUrl(self.path.text()))
 
+    def setCurrentStudent(self):
+        self.currentStudentFile = open("CurrentStudent.txt","r")
+        self.currentStudentLabel.setText(self.currentStudentFile.readline())
+        self.currentStudentFile.close()
+
     def initUI(self):
 
         self.setFixedSize(800,800)
@@ -123,8 +131,12 @@ class controllerWindow(QWidget):
         self.grid = QGridLayout()
         self.grid.setSpacing(10)
 
-        self.grid.addWidget(self.upload,1,0)
-        self.grid.addWidget(self.path,1,1,1,5)
+        self.currentStudentLabel = QLabel("CurrentStudent")
+        self.currentStudentLabel.setAlignment(Qt.AlignCenter)
+
+        self.grid.addWidget(self.currentStudentLabel,1,0,1,6)
+        self.grid.addWidget(self.upload,2,0)
+        self.grid.addWidget(self.path,2,1,1,5)
 
         self.previewButton = QPushButton("Preview",self)
         self.previewButton.setToolTip("Preview selected PDF")
@@ -139,21 +151,24 @@ class controllerWindow(QWidget):
         self.web.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
         self.web.settings = QWebEngineView
 
-        self.grid.addWidget(self.add,8,2)
-        self.grid.addWidget(self.select,8,3)
-        self.grid.addWidget(self.check,8,4)
-        self.grid.addWidget(self.web,2,0,4,0)
-        self.grid.addWidget(self.previewButton,1,6)
+        self.grid.addWidget(self.add,9,2)
+        self.grid.addWidget(self.select,9,3)
+        self.grid.addWidget(self.check,9,4)
+        self.grid.addWidget(self.web,3,0,4,0)
+        self.grid.addWidget(self.previewButton,2,6)
 
         self.upload.clicked.connect(self.getFile)
         self.previewButton.clicked.connect(self.preview)
         self.add.clicked.connect(CreateAddWindow)
         self.select.clicked.connect(CreateSelectWindow)
+        self.select.clicked.connect(self.setCurrentStudent)
 
         self.setLayout(self.grid)
 
 if __name__ == '__main__':
-    open("profiles/all_profiles.txt","w").close()
+    newFile = open("CurrentStudent.txt","w")
+    newFile.write("CurrentStudent")
+    newFile.close()
     app = QApplication(sys.argv)
     app.setApplicationDisplayName("Checkr")
     window = CreateControllerWindow()

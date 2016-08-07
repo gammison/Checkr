@@ -1,4 +1,4 @@
 Emmanuel Amponsah
 path ptah ptah ptah ptah path path path path path path
-[[1,2,33,4,1], [232,232]]
-[1,2]
+[[1,2,33,4,1], [232,23902]]
+[1,0]

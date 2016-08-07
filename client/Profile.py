@@ -1,5 +1,5 @@
 import os
-
+import re
 
 class Profile():
 
@@ -22,18 +22,20 @@ class Profile():
 
     def set_x_vector(self):
         x_vector = self.path.readline()
-        for array in x_vector:
+        for array in x_vector.split(" "):
             temp_array = []
-            for single in array:
-                check = "[],"
-                if check in single:
-                    single.replace(check, '')
-
-                temp_array.append(single)
+            array = re.sub("[\[]", '', array)
+            array = array.replace(']', '')
+            for single in array.split(','):
+                if single.strip().isnumeric():
+                    temp_array.append(int(single))
             self.x_vector.append(temp_array)
 
     def set_y_vector(self):
-        pass
+        y_vector = self.path.readline()
+        for array in y_vector.split(" "):
+            print(array)
+            self.y_vector.append(array)
 
     # Accessing files
     def get_profile_name(self):
@@ -48,12 +50,13 @@ class Profile():
     def get_y_vector(self):
         return self.y_vector
 
-path = os.path.realpath('/profiles/test.txt')
-print(os.path.exists(path))
+path = os.path.realpath('profiles/test.txt')
 test = Profile(path)
 test.set_profile_name()
 test.set_file_paths()
+test.set_y_vector()
 test.set_x_vector()
 print(test.get_profile_name())
 print(test.get_file_paths())
 print(test.get_x_vector())
+print(test.get_y_vector())

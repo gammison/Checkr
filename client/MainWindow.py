@@ -15,7 +15,7 @@ class initGUI(QWidget):
 
     def preview(self):
         self.web.show()
-        self.web.load(QUrl(self.fileName.text()))
+        self.web.load(QUrl(self.path.text()))
 
     def createAddWindow(self):
         #add window

@@ -30,6 +30,7 @@ def createVector(filename):
     Brunet_W_measure  = 0# vocab rich by Brune
     Honore_R_measure  = 0# vocab rich by Honre
     Freq_dist_Wordlen = 0  # need 20 of these
+    punclist = [0,0,0,0,0,0,0,0] #, . ? ! : ; ' "
     for x in DocString:
         if x.isalpha():
             alphebetcount+=1
@@ -37,7 +38,24 @@ def createVector(filename):
             digitcount+=1
         if x.isupper():
             uppercasecount+=1
+        if x==',':
+            punclist[0]+=1
+        if x=='.':
+            punclist[1]+=1
+        if x=='?':
+            punclist[2]+=1
+        if x=='!':
+            punclist[3]+=1
+        if x==':':
+            punclist[4]+=1
+        if x==';':
+            punclist[5]+=1
+        if x=='\'':
+            punclist[6]+=1
+        if x=='"':
+            punclist[7]+=1
 
+    print(punclist)
     # A-Z count
     letcur = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     for line in enumerate(DocString):
@@ -77,10 +95,11 @@ def createVector(filename):
 
     #syntatic feat: freq punctuation, and function words will be loaded from the research doc asd
 
+
     #structural freatures
     data+=[charactercount,alphebetcount,uppercasecount,digitcount,whitespacecount,tab_and_spacecount]+letcur+\
           [totalwordcount,total_dif_words,totalshortwords,totalcharinwordsC,freq_twice_ocur_words,freq_once_ocur_words]\
-          + freqwords
+          + freqwords+punclist
 
     return data
 

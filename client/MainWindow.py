@@ -12,9 +12,11 @@ class initGUI(QWidget):
     def getFile(self):
         self.fileName = QFileDialog.getOpenFileName(self,"Open File")
         self.path.setText(self.fileName[0])
+        #display window
         self.web.load(QUrl(self.path.text()))
 
     def initUI(self):
+
         self.setFixedSize(800,800)
 
         self.upload = QPushButton("Upload", self)

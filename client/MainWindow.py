@@ -1,8 +1,7 @@
 import sys
 import os
-from PyQt5.QtCore import QUrl
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel, QComboBox, QHeaderView
-from PyQt5.QtNetwork import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel, QComboBox
 from PyQt5.QtWebEngineWidgets import *
 
 def CreateControllerWindow():
@@ -32,14 +31,15 @@ class selectWindow(QWidget):
         for e in self.list_of_names:
             self.dropDown.addItem(e)
 
-    def selectStudent(self):
-        self.selectedStudent = self.dropDown.currentText()
-
     def getSelectedStudent(self):
-        return self.selectedStudent
+        self.selectedStudent = self.dropDown.currentText()
+        self.selectedStudentFile = open("CurrentStudent.txt","w")
+        self.selectedStudentFile.write(self.selectedStudent)
+        self.selectedStudentFile.close()
+        self.close()
 
     def initAddUI(self):
-        self.setFixedSize(200,200)
+        self.setFixedSize(250,200)
         self.setWindowTitle("Select Student")
         self.selectedStudent = ""
 
@@ -59,7 +59,7 @@ class selectWindow(QWidget):
         self.generate_list()
 
         self.cancel.clicked.connect(self.close)
-        self.select.clicked.connect(self.selectStudent)
+        self.select.clicked.connect(self.getSelectedStudent)
 
         self.setLayout(self.windowGrid)
 
@@ -79,7 +79,7 @@ class addWindow(QWidget):
         self.close()
 
     def initAddUI(self):
-        self.setFixedSize(200,200)
+        self.setFixedSize(250,200)
         self.setWindowTitle("Add Student")
 
         self.WindowGrid = QGridLayout()
@@ -113,6 +113,11 @@ class controllerWindow(QWidget):
         self.web.show()
         self.web.load(QUrl(self.path.text()))
 
+    def setCurrentStudent(self):
+        self.currentStudentFile = open("CurrentStudent.txt","r")
+        self.currentStudentLabel.setText(self.currentStudentFile.readline())
+        self.currentStudentFile.close()
+
     def initUI(self):
 
         self.setFixedSize(800,800)
@@ -121,16 +126,15 @@ class controllerWindow(QWidget):
         self.upload.setToolTip("Upload student work")
         self.upload.resize(self.upload.sizeHint())
 
-        self.currentStudent = "CurrentStudent"
-        #current
-
         self.path = QLineEdit()
 
         self.grid = QGridLayout()
         self.grid.setSpacing(10)
 
+        self.currentStudentLabel = QLabel("CurrentStudent")
+        self.currentStudentLabel.setAlignment(Qt.AlignCenter)
 
-        self.grid.addWidget(self.currentStudentLabel1,2,6)
+        self.grid.addWidget(self.currentStudentLabel,1,0,1,6)
         self.grid.addWidget(self.upload,2,0)
         self.grid.addWidget(self.path,2,1,1,5)
 
@@ -157,11 +161,14 @@ class controllerWindow(QWidget):
         self.previewButton.clicked.connect(self.preview)
         self.add.clicked.connect(CreateAddWindow)
         self.select.clicked.connect(CreateSelectWindow)
+        self.select.clicked.connect(self.setCurrentStudent)
 
         self.setLayout(self.grid)
 
 if __name__ == '__main__':
-    open("profiles/all_profiles.txt","w").close()
+    newFile = open("CurrentStudent.txt","w")
+    newFile.write("CurrentStudent")
+    newFile.close()
     app = QApplication(sys.argv)
     app.setApplicationDisplayName("Checkr")
     window = CreateControllerWindow()

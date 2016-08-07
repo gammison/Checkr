@@ -22,9 +22,11 @@ class addWindow(QWidget):
 
     def createText(self):
         self.filePath = os.path.realpath("profiles/"+self.nameTextBox.text()+".txt")
+        print(self.filePath)
         self.file = open(self.filePath, "r+")
         self.file.write(self.nameTextBox.text())
-        self.close()
+        self.file.close()
+        print("added")
 
     def initAddUI(self):
         self.setFixedSize(400,400)
@@ -36,7 +38,7 @@ class addWindow(QWidget):
         self.nameTextBox = QLineEdit()
         self.addButton = QPushButton("Add", self)
         self.cancelButton = QPushButton("Cancel",self)
-        print("Loaded!")
+
         self.WindowGrid.addWidget(self.nameLabel,1,1)
         self.WindowGrid.addWidget(self.nameTextBox,1,2,1,3)
         self.WindowGrid.addWidget(self.addButton,3,0)

@@ -37,16 +37,16 @@ class selectWindow(QWidget):
         self.selectedStudentFile.write(self.selectedStudent)
         self.selectedStudentFile.close()
 
-        import CreateVector
-        onlyfiles = [f for f in os.listdir("text")]
-        finalFileName = ""
-        for temp in onlyfiles:
-            tfile = open("text/"+temp,"r")
-            if tfile.readline().__contains__(addWindow.nameTextBox.text()):
-                finalFileName = temp
-                break
+        # import CreateVector
+        # onlyfiles = [f for f in os.listdir("text")]
+        # finalFileName = ""
+        # for temp in onlyfiles:
+        #     tfile = open("text/"+temp,"r")
+        #     if tfile.readline().__contains__(self.selectedStudent):
+        #         finalFileName = temp
+        #         break
 
-        cv = CreateVector(finalFileName,addWindow.nameTextBox.text())
+        # cv = CreateVector.createVector(finalFileName,self.selectedStudent+".txt")
 
         self.close()
 

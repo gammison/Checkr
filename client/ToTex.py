@@ -28,6 +28,6 @@ class ToTex():
 
         for i in range(reader.numPages):
             text_file = text_file + " " + reader.getPage(i).extractText()
-        target = open('text/'+tbc+'txt', 'w')
+        target = open('text/'+tbc+'.txt', 'w')
         target.truncate()
         target.write(text_file)

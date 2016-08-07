@@ -1,3 +1,44 @@
-import os
+class Profile():
 
-profile_name = 'Rick'
+    def __init__(self, path):
+        self.path = open(path, 'r')
+        self.profile_name = ""
+        self.file_path = []
+        self.x_vector = []
+        self.y_vector = []
+
+    # Setting files
+    def set_profile_name(self):
+        self.profile_name = self.path.readline()
+
+    def set_file_paths(self):
+        line_path = self.path.readline()
+        for line in line_path.split(" "):
+            self.file_path.append(line)
+        return self.file_path
+
+    def set_x_vector(self):
+        pass
+
+    def set_y_vector(self):
+        pass
+
+    # Accessing files
+    def get_profile_name(self):
+        return self.profile_name
+
+    def get_file_paths(self):
+        return self.file_path
+
+    def get_x_vector(self):
+        return self.x_vector
+
+    def get_y_vector(self):
+        return self.y_vector
+
+test = Profile('test.txt')
+test.set_profile_name()
+test.set_file_paths()
+
+print(test.get_profile_name())
+print(test.get_file_paths())

@@ -1,8 +1,8 @@
 import sys
 import os
 from PyQt5.QtCore import *
+from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel, QComboBox, QTextEdit
-from PyQt5.QtWebEngineWidgets import *
 
 def CreateControllerWindow():
     global cw
@@ -108,9 +108,6 @@ class controllerWindow(QWidget):
     def getFile(self):
         self.fileName = QFileDialog.getOpenFileName(self,"Open File")
         self.path.setText(self.fileName[0])
-        tempFile = open("preview/filePath.txt","a")
-        tempFile.write(self.fileName[0])
-        tempFile.close()
 
     def setCurrentStudent(self):
         self.currentStudentFile = open("CurrentStudent.txt","r")
@@ -119,7 +116,7 @@ class controllerWindow(QWidget):
 
     def initUI(self):
 
-        self.setFixedSize(800,800)
+        self.setFixedSize(600,600)
 
         self.upload = QPushButton("Upload", self)
         self.upload.setToolTip("Upload student work")
@@ -131,6 +128,7 @@ class controllerWindow(QWidget):
         self.grid.setSpacing(10)
 
         self.currentStudentLabel = QLabel("CurrentStudent")
+        self.currentStudentLabel.setFont(QFont("Verdana",30))
         self.currentStudentLabel.setAlignment(Qt.AlignCenter)
 
         self.grid.addWidget(self.currentStudentLabel,1,0,1,6)

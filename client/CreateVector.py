@@ -63,23 +63,25 @@ def createVector(filename):
     for x in sents:
         wordtemp+=len(word_tokenize(x,language='english'))
     avg_sent_len_word = wordtemp/len(sents)
-    freqdist = fd(DocString)
+    freqdist = fd(words)
 
     total_dif_words=len(freqdist)
     freq_once_ocur_words=len(freqdist.hapaxes())
-    freqwords = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    freqwords = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    print(freqdist)
     for x in freqdist:
-        if(freqdist[x]<=20):
-            freqwords[freqdist[x]-3]+=1
+        if freqdist[x]<=20:
+            if freqdist[x]>=3:
+                freqwords[freqdist[x]-3]+=1
     #richness measures
 
     #syntatic feat: freq punctuation, and function words will be loaded from the research doc asd
 
     #structural freatures
-
-
     data+=[charactercount,alphebetcount,uppercasecount,digitcount,whitespacecount,tab_and_spacecount]+letcur+\
-          [totalwordcount,total_dif_words,totalshortwords,totalcharinwordsC,freq_twice_ocur_words,freq_once_ocur_words]
+          [totalwordcount,total_dif_words,totalshortwords,totalcharinwordsC,freq_twice_ocur_words,freq_once_ocur_words]\
+          + freqwords
 
     return data
 
+print(createVector('G:\\git_repos\\checkr\\client\\test.txt'))

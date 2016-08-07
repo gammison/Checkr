@@ -1,5 +1,5 @@
 import numpy as np
-
+from sklearn import svm
 X = [[0, 0], [1, 1], [2, 2]] #training samples of n samples, n features
 y = [0, 1,2 ] # class labels of n samples
 clf = svm.SVC()

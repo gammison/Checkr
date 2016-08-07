@@ -122,6 +122,7 @@ class controllerWindow(QWidget):
         self.upload.resize(self.upload.sizeHint())
 
         self.currentStudent = "CurrentStudent"
+        #current
 
         self.path = QLineEdit()
 

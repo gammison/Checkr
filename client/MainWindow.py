@@ -37,6 +37,7 @@ class selectWindow(QWidget):
         self.selectedStudentFile.write(self.selectedStudent)
         self.selectedStudentFile.close()
 
+        #add
         import CreateVector
         onlyfiles = [f for f in os.listdir("text")]
         finalFileName = ""

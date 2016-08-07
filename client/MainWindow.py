@@ -2,6 +2,7 @@ import sys
 import os
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QFileDialog, QGridLayout, QLabel
+from PyQt5.QtNetwork import *
 from PyQt5.QtWebEngineWidgets import *
 
 def CreateControllerWindow():
@@ -25,7 +26,7 @@ class addWindow(QWidget):
         self.file = open(self.filePath, "a")
         self.file.write(self.nameTextBox.text())
         self.file.close()
-        self.close();
+        self.close()
 
     def initAddUI(self):
         self.setFixedSize(400,400)
@@ -89,6 +90,7 @@ class controllerWindow(QWidget):
 
         self.web = QWebEngineView()
         self.web.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
+        self.web.settings = QWebEngineView
 
         self.grid.addWidget(self.add,8,2)
         self.grid.addWidget(self.select,8,3)

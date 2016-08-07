@@ -83,4 +83,3 @@ def createVector(filename):
 
     return data
 
-print(createVector('G:\\git_repos\\checkr\\client\\test.txt'))

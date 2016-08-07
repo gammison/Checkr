@@ -10,10 +10,10 @@ def compare(filepath):
     for temp in onlyfiles:
         tfile = open(temp, 'r')
         y.append(tfile.readline())
-        tfile.readline()
-        X.append(tfile.readline())
-      
-
+        tomake  = tfile.readline().split(",")
+        for k in tomake:
+            w = k.split(" ")
+            X.append(w)
     clf = svm.SVC()
     print(clf.fit(X, y))
     #print(clf.predict(

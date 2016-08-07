@@ -18,6 +18,7 @@ class initGUI(QWidget):
         self.web.load(QUrl(self.fileName.text()))
 
     def createAddWindow(self):
+        #add window
         self.addWindow = QWidget()
         self.addWindow.setFixedSize(400,400)
         self.addWindow.setWindowTitle("Add Student")

@@ -1,8 +1,9 @@
+import CreateVector
 def writetoprofile(bookfile_path,profile_path,isthem):
     profile = open(profile_path,'w')
     ps = profile.read()
     profile_string_array = ps.split("\n")
-    solved = profile.get_x_vector(bookfile_path)
+    solved = []
 
     #0 is the name
     # path to the text file

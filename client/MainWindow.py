@@ -25,11 +25,13 @@ class addWindow(QWidget):
         self.filePath = os.path.realpath("profiles/"+self.nameTextBox.text()+".txt")
         self.file = open(self.filePath, "a")
         self.file.write(self.nameTextBox.text())
+        self.file = open(os.path.realpath("profiles/all_profiles.txt"), "r+")
+        self.file.write(self.nameTextBox.text())
         self.file.close()
         self.close()
 
     def initAddUI(self):
-        self.setFixedSize(400,400)
+        self.setFixedSize(200,200)
         self.setWindowTitle("Add Student")
 
         self.WindowGrid = QGridLayout()
@@ -41,7 +43,7 @@ class addWindow(QWidget):
 
         self.WindowGrid.addWidget(self.nameLabel,1,1)
         self.WindowGrid.addWidget(self.nameTextBox,1,2,1,3)
-        self.WindowGrid.addWidget(self.addButton,3,0)
+        self.WindowGrid.addWidget(self.addButton,3,2)
         self.WindowGrid.addWidget(self.cancelButton,3,3)
 
         self.cancelButton.clicked.connect(self.close)
